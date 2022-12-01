@@ -42,19 +42,23 @@ function Countdown({hr, min, sec}) {
     setPause(true)
     setOver(false)
   }
-
+  
   // 2 step further change time
   const handleChangeTime = (e) => {
     // console.log(e.target.value)
+    let inputValue = parseInt(e.target.value)
     switch (e.target.id) {
       case "hr":
-        setTime([parseInt(e.target.value),m,s])
+        if (inputValue>99) inputValue = 99;  
+        setTime([inputValue,m,s])
         break;
       case "min":
-        setTime([h,parseInt(e.target.value),s])
+        if (inputValue>59) inputValue = 59;  
+        setTime([h,inputValue,s])
         break;
       case "sec":
-        setTime([h,m,parseInt(e.target.value)])
+        if (inputValue>59) inputValue = 59;
+        setTime([h,m,inputValue])
         break;
       default:
         break;
@@ -95,7 +99,7 @@ function Countdown({hr, min, sec}) {
           value={`${tf.format(m)}`}
           type="number"
           min="0"
-          max="60"
+          max="59"
           step="1">
           </input>
         </div>
@@ -108,7 +112,7 @@ function Countdown({hr, min, sec}) {
           value={`${tf.format(s)}`}
           type="number"
           min="0"
-          max="60"
+          max="59"
           step="1">
           </input>
         </div>
@@ -128,7 +132,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" preload="true"/>
-        <div>
+        <div className='main'>
         {/* prop as default value */}
           <Countdown hr={1} min={45} sec={0}/>
         </div>
